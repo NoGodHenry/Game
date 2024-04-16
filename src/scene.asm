@@ -8,7 +8,7 @@ extern printf
 
 section .data
 scene_list dq 0
-scene_list_size dw 0
+scene_list_size dd 0
 
 section .text
 scene_init:

@@ -1,5 +1,6 @@
 global render_frame
 extern printf
+extern render_object
 extern scene_list
 extern scene_list_size
 
@@ -9,7 +10,7 @@ section .text
 render_frame:
     enter 16, 0
     mov dword[rbp-4], 0
-render_object:
+render_frame_loop:
     mov eax, dword[scene_list_size]
     cmp dword[rbp-4], eax
     jge render_exit
@@ -23,9 +24,11 @@ render_object:
     mov rdi, debug
     call printf
 
+    mov rdi, qword[rbp-12]
+    call render_object
     ; Increse object index
     inc dword[rbp-4]
-    jmp render_object
+    jmp render_frame_loop
 render_exit:
     leave
     ret
