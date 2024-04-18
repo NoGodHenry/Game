@@ -8,7 +8,8 @@ section .data
 debug db "Rendering object", 10, 0
 section .text
 render_frame:
-    enter 16, 0
+    enter 32, 0
+    mov qword[rbp-20], rdi
     mov dword[rbp-4], 0
 render_frame_loop:
     mov eax, dword[scene_list_size]
@@ -25,6 +26,7 @@ render_frame_loop:
     call printf
 
     mov rdi, qword[rbp-12]
+    mov rsi, qword[rbp-20]
     call render_object
     ; Increse object index
     inc dword[rbp-4]
