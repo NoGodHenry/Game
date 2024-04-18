@@ -14,8 +14,8 @@ main:
     call scene_init
     
     ; TODO: Change resolution
-    mov edi, 5
-    mov esi, 6
+    mov edi, 10 
+    mov esi, 10
     call fbo_new
     mov qword[rbp-8], rax
     
