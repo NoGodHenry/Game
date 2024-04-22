@@ -81,7 +81,7 @@ fbo_clear:
     imul dword[rdi - 4]
 fbo_clear_start:  
     lea rdx, [rdi + rax]
-    mov byte[rdx], ' '
+    mov byte[rdx], 66 
     dec eax
     cmp eax, 0
     jge fbo_clear_start

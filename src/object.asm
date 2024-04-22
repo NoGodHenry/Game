@@ -15,6 +15,7 @@ object_new:
     mov edi, 4*6
     call malloc
     mov qword[rbp-8], rax
+    ;mov dword[rax], __float32__(10.2)
     mov rax, qword[rbp-8]
     leave
     ret
