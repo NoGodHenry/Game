@@ -26,9 +26,9 @@ main:
     
     ; render frame
     mov rdi, qword[rbp-8]
-    call render_frame
-    mov rdi, qword[rbp-8]
     call fbo_clear        
+    mov rdi, qword[rbp-8]
+    call render_frame
     mov rdi, qword[rbp-8]
     call fbo_render_screen
     leave

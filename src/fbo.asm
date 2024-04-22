@@ -9,6 +9,7 @@ extern memset
 
 section .data
 debug db "fbo_new:", 10, 0
+newline db 10
 section .text
 fbo_new:
     enter 32, 0
@@ -48,13 +49,30 @@ fbo_write:
 
 ; fbo - rdi
 fbo_render_screen:
-    mov rcx, rdi
+    enter 16, 0
+    mov qword[rbp-8], rdi
+    mov dword[rbp-12], 0
+fbo_render_row:
+    mov rcx, qword[rbp-8]
     mov rdi, 0
-    lea rsi, [rcx + 8]
-    mov eax, dword[rcx]
+    mov eax, dword[rbp-12]
     imul dword[rcx + 4]
-    mov edx, eax
+    add eax, 8
+    lea rsi, [rcx + rax]
+    mov edx, dword[rcx + 4]
     call write
+
+    mov rdi, 0
+    mov rsi, newline
+    mov edx, 1 
+    call write 
+
+    inc dword[rbp-12]
+    mov rcx, qword[rbp-8]
+    mov ecx, dword[rcx + 4] 
+    cmp dword[rbp-12], ecx 
+    jle fbo_render_row
+    leave
     ret
 
 fbo_clear:
