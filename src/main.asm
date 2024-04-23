@@ -7,6 +7,8 @@ extern scene_list_append
 extern object_new
 extern fbo_new
 extern fbo_render_screen
+extern renderer_clear_frame
+extern usleep
 
 section .text
 main:
@@ -25,11 +27,16 @@ main:
     call scene_list_append
     
     ; render frame
+test:
+    call renderer_clear_frame
     mov rdi, qword[rbp-8]
     call fbo_clear        
     mov rdi, qword[rbp-8]
     call render_frame
     mov rdi, qword[rbp-8]
     call fbo_render_screen
+    mov edi, 100000
+    call usleep
+    jmp test
     leave
     ret

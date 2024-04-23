@@ -37,14 +37,12 @@ fbo_new:
 ; x - rsi
 ; y - rdx
 fbo_write:
-    mov ecx, dword[rdi + 4]
-    mov rax, rsi 
+    mov eax, dword[rdi + 4]
     imul rdx
     add rax, rdi
     add rax, 8
-    add rax, rsi
-
-    mov qword[rax], 65
+    add rax, rsi 
+    mov byte[rax], 65
     ret
 
 ; fbo - rdi
@@ -81,7 +79,7 @@ fbo_clear:
     imul dword[rdi - 4]
 fbo_clear_start:  
     lea rdx, [rdi + rax]
-    mov byte[rdx], 66 
+    mov byte[rdx], ' ' 
     dec eax
     cmp eax, 0
     jge fbo_clear_start

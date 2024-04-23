@@ -1,12 +1,23 @@
 global render_frame
+global renderer_clear_frame
 extern printf
 extern render_object
 extern scene_list
 extern scene_list_size
+extern write
 
 section .data
 debug db "Rendering object", 10, 0
+clear_text db 1bh, "[2J", 0
 section .text
+renderer_clear_frame:
+    enter 16, 0
+    mov rdi, 0
+    mov rsi, clear_text 
+    mov edx, 4
+    call write
+    leave
+    ret
 render_frame:
     enter 32, 0
     mov qword[rbp-20], rdi
