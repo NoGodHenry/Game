@@ -1,5 +1,9 @@
 global object_new
+global object_update
 extern malloc
+section .data
+incss1:
+    dd 1.0
 section .text
 
 ; Object
@@ -18,5 +22,15 @@ object_new:
     mov dword[rax], __float32__(5.2)
     mov dword[rax + 4], __float32__(2.0)
     mov rax, qword[rbp-8]
+    leave
+    ret
+
+object_update:
+    enter 16, 0
+    mov qword[rbp-8], rdi
+    movss xmm0, dword[rdi]
+    movss xmm1, incss1
+    addss xmm0, xmm11
+    movss dword[rdi], xmm0
     leave
     ret
