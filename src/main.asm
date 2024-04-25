@@ -1,5 +1,6 @@
 global main
 extern scene_init
+extern camera_init
 extern scene_list
 extern render_frame
 extern fbo_clear
@@ -14,10 +15,11 @@ section .text
 main:
     enter 16, 0
     call scene_init
+    call camera_init
     
     ; TODO: Change resolution
-    mov edi, 10 
-    mov esi, 10
+    mov edi, 40 
+    mov esi, 40
     call fbo_new
     mov qword[rbp-8], rax
     

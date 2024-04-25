@@ -37,12 +37,20 @@ fbo_new:
 ; x - rsi
 ; y - rdx
 fbo_write:
-    mov eax, dword[rdi + 4]
+    mov eax, dword[rdi + 4] ; y - value
+    cmp rdx, rax
+    jle fbo_write_skip1
+    ret
+fbo_write_skip1:
+    cmp esi, dword[rdi + 4]
+    jle fbo_write_skip2
+    ret
+fbo_write_skip2:
     imul rdx
     add rax, rdi
     add rax, 8
     add rax, rsi 
-    mov byte[rax], 65
+    mov byte[rax], '#'
     ret
 
 ; fbo - rdi

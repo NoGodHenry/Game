@@ -2,6 +2,7 @@ global render_object
 extern fbo_write
 extern printf
 extern object_update
+extern projection_transform 
 
 section .data
 debug db "daad: %d", 10, 0
@@ -15,9 +16,11 @@ render_object:
     mov rdi, qword[rbp-16]
     mov rsi, qword[rbp-8]
     movss xmm0, dword[rsi]
-    cvtss2si edx, xmm0
-    movss xmm0, dword[rsi + 4]
+    movss xmm1, dword[rsi + 4]
+    call projection_transform
     cvtss2si esi, xmm0
+    cvtss2si edx, xmm1
+    
     call fbo_write
 
     mov rdi, qword[rbp-8]

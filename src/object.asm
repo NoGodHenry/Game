@@ -21,6 +21,7 @@ object_new:
     mov qword[rbp-8], rax
     mov dword[rax], __float32__(5.2)
     mov dword[rax + 4], __float32__(2.0)
+    mov dword[rax + 8], __float32__(2.0)
     mov rax, qword[rbp-8]
     leave
     ret
@@ -28,9 +29,9 @@ object_new:
 object_update:
     enter 16, 0
     mov qword[rbp-8], rdi
-    movss xmm0, dword[rdi]
-    movss xmm1, incss1
-    addss xmm0, xmm11
-    movss dword[rdi], xmm0
+    ;movss xmm0, dword[rdi + 0]
+    ;movss xmm1, dword[incss1]
+    ;addss xmm0, xmm1
+    ;movss dword[rdi + 0], xmm0
     leave
     ret
