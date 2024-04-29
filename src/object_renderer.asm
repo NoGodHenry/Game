@@ -17,6 +17,7 @@ render_object:
     mov rsi, qword[rbp-8]
     movss xmm0, dword[rsi]
     movss xmm1, dword[rsi + 4]
+    movss xmm2, dword[rsi + 8]
     call projection_transform
     cvtss2si esi, xmm0
     cvtss2si edx, xmm1

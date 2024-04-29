@@ -16,5 +16,6 @@ camera_f dd 2.0
 
 section .text
 camera_init:
-    mov dword[camera_y], __float32__(1.0) 
+    mov dword[camera_x], __float32__(25.0) 
+    ;mov dword[camera_y], __float32__(25.0) 
     ret

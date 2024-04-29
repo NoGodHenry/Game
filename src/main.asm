@@ -11,6 +11,15 @@ extern fbo_render_screen
 extern renderer_clear_frame
 extern usleep
 
+%macro add_object 3
+    call object_new
+    mov dword[rax], __float32__(%1)
+    mov dword[rax + 4], __float32__(%2)
+    mov dword[rax + 8], __float32__(%3)
+    mov rdi, rax
+    call scene_list_append
+%endmacro
+
 section .text
 main:
     enter 16, 0
@@ -24,9 +33,8 @@ main:
     mov qword[rbp-8], rax
     
     ; allocate new object
-    call object_new
-    mov rdi, rax
-    call scene_list_append
+    add_object 5.0, 5.0, 5.0
+    add_object 50.0, 5.0, 5.0
     
     ; render frame
 test:
