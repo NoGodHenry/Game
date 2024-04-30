@@ -30,20 +30,14 @@ object_new:
 object_update:
     enter 16, 0
     mov qword[rbp-8], rdi
-    movss xmm0, dword[rdi + 8]
-    movss xmm1, dword[incss1]
-    addss xmm0, xmm1
-    movss dword[rdi + 8], xmm0
+    ;movss xmm0, dword[rdi + 8]
+    ;movss xmm1, dword[incss1]
+    ;addss xmm0, xmm1
+    ;movss dword[rdi + 8], xmm0
     
     ; Change xmm registers
     movss xmm1, dword[camera_x] 
     movss xmm2, dword[incss1]
-    addss xmm1, xmm2
-    addss xmm1, xmm2
-    addss xmm1, xmm2
-    addss xmm1, xmm2
-    addss xmm1, xmm2
-    addss xmm1, xmm2
     addss xmm1, xmm2
     movss dword[camera_x], xmm1
     leave

@@ -27,14 +27,15 @@ main:
     call camera_init
     
     ; TODO: Change resolution
-    mov edi, 40 
+    mov edi, 60 
     mov esi, 40
     call fbo_new
     mov qword[rbp-8], rax
     
     ; allocate new object
     add_object 5.0, 5.0, 5.0
-    add_object 50.0, 5.0, 5.0
+    ;add_object 50.0, 5.0, 5.0
+    ;add_object 60.0, 10.0, 5.0
     
     ; render frame
 test:

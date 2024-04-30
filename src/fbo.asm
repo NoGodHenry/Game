@@ -8,7 +8,7 @@ extern printf
 extern memset
 
 section .data
-debug db "fbo_new:", 10, 0
+debug db "fbo_new: %d", 10, 0
 newline db 10
 section .text
 fbo_new:
@@ -37,20 +37,29 @@ fbo_new:
 ; x - rsi
 ; y - rdx
 fbo_write:
-    mov eax, dword[rdi + 4] ; y - value
-    cmp rdx, rax
-    jle fbo_write_skip1
-    ret
-fbo_write_skip1:
-    cmp esi, dword[rdi + 4]
-    jle fbo_write_skip2
-    ret
-fbo_write_skip2:
+    ; check for x, y bounds
+    
+    mov eax, dword[rdi + 4]
+    cmp rdx, rax 
+    jge fbo_write_ret
+    
+    mov eax, dword[rdi]
+    cmp rsi, rax 
+    jge fbo_write_ret
+
+    cmp rsi, 0
+    jl fbo_write_ret
+    cmp rdx, 0
+    jl fbo_write_ret
+    
+    ; write to the fbo 
+    mov eax, dword[rdi + 4]
     imul rdx
     add rax, rdi
     add rax, 8
     add rax, rsi 
     mov byte[rax], '#'
+fbo_write_ret:
     ret
 
 ; fbo - rdi
@@ -61,11 +70,10 @@ fbo_render_screen:
 fbo_render_row:
     mov rcx, qword[rbp-8]
     mov rdi, 0
-    mov eax, dword[rbp-12]
-    imul dword[rcx + 4]
-    add eax, 8
-    lea rsi, [rcx + rax]
-    mov edx, dword[rcx + 4]
+    mov esi, dword[rbp-12]
+    add rsi, rcx
+    add rsi, 8
+    mov edx, dword[rcx]
     call write
 
     mov rdi, 0
@@ -73,10 +81,13 @@ fbo_render_row:
     mov edx, 1 
     call write 
 
-    inc dword[rbp-12]
     mov rcx, qword[rbp-8]
-    mov ecx, dword[rcx + 4] 
-    cmp dword[rbp-12], ecx 
+    mov edx, dword[rcx] 
+    add dword[rbp-12], edx
+    mov eax, dword[rcx + 4]
+    dec eax
+    mul edx
+    cmp dword[rbp-12], eax 
     jle fbo_render_row
     leave
     ret

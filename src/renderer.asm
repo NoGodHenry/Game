@@ -7,8 +7,8 @@ extern scene_list_size
 extern write
 
 section .data
-debug db "Rendering object", 10, 0
 clear_text db 1bh, "[2J", 0
+
 section .text
 renderer_clear_frame:
     enter 16, 0
@@ -32,10 +32,7 @@ render_frame_loop:
     mov rax, qword[scene_list]
     mov rax, qword[rax + rdi*8]
     mov qword[rbp-12], rax 
-
-    mov rdi, debug
-    call printf
-
+    
     mov rdi, qword[rbp-12]
     mov rsi, qword[rbp-20]
     call render_object

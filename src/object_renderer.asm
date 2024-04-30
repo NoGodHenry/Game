@@ -5,7 +5,7 @@ extern object_update
 extern projection_transform 
 
 section .data
-debug db "daad: %d", 10, 0
+debug db "klasdjklsad", 10, 0
 
 section .text
 render_object: 
@@ -21,11 +21,10 @@ render_object:
     call projection_transform
     cvtss2si esi, xmm0
     cvtss2si edx, xmm1
-    
     call fbo_write
 
-    mov rdi, qword[rbp-8]
-    call object_update
+    ;mov rdi, qword[rbp-8]
+    ;call object_update
 
     leave
     ret
